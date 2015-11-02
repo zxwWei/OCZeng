@@ -14,7 +14,7 @@
 
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
-
+#import "MJExtension.h"
 
 /// 申请时应用时分配的APPKey  @"1369851949" 表示字符串
 #define client_id  @"1369851949"

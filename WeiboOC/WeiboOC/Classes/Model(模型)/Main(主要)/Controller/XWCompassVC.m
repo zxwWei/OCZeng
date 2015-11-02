@@ -13,6 +13,7 @@
 #import "XWProfileTableVC.h"
 #import "XWDiscoverTableVC.h"
 #import "XWOauthVC.h"
+#import "XWUserAccount.h"
 @interface XWCompassVC ()<XWCompassViewDelegate>
 
 @property(nonatomic,assign) BOOL userLogin;
@@ -25,9 +26,9 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    
-    // 在某地方处理这个self.userLogin
-    //self.userLogin = NO;
+#warning 在某地方处理这个self.userLogin 要与appdelegate的控制器切换搭配
+    // MARK: - 在某地方处理这个self.userLogin
+    self.userLogin = [[XWUserAccount shareAccount] isLogin];
 }
 
 // MARK:  当加载的时候loadview时，当没登陆的时候进入这个界面

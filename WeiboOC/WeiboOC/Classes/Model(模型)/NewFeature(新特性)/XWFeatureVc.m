@@ -68,18 +68,26 @@ static NSString * const reuseIdentifier = @"Cell";
     
     XWCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    
-    
-//    if (indexPath.item == 0){
-//        
-//     cell.backgroundColor = [UIColor redColor];
-//    }
-//    else  if (indexPath.item == 1){
-//        
-//        cell.backgroundColor = [UIColor yellowColor];
-//    }
-    
+    cell.imageIndex = indexPath.item;
+  
+
     return cell;
+}
+
+// MARK: - collectionView分页滚动完毕cell看不到的时候调用
+
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    // 取得正在显示的cell
+    NSIndexPath * indexPath1 = [[collectionView indexPathsForVisibleItems] firstObject];
+    
+    XWCollectionCell *cell1 = (XWCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath1];
+    
+    if (indexPath1.item == itemCount - 1){
+        
+        [cell1 startAnimation];
+    }
+
 }
 
 @end
@@ -93,22 +101,50 @@ static NSString * const reuseIdentifier = @"Cell";
 
 @property(nonatomic,strong) UIButton *startBtn;
 
+
 @end
 
 @implementation XWCollectionCell
 
 
+
+// 注意构造方法
+// 错误方法
+//-(instancetype)initWithFrame:(CGRect)frame{
+//    [self prepareUI];
+//    [super initWithFrame:frame];
+//}
+
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
-    return [super initWithCoder:aDecoder];
+    
+    self = [super initWithCoder:aDecoder];
+    if (self){
+//        [self prepareUI];
+    }
+    return self;
 }
 
 
 -(instancetype)initWithFrame:(CGRect)frame{
     
-    [self prepareUI];
-    
-    return [super initWithFrame:frame];
+    self = [super initWithFrame:frame];
+    if (self){
+     
+        [self prepareUI];
+    }
+    return self;
 }
+
+
+
+//- (instancetype)init
+//{
+//    self = [super init];
+//    if (self) {
+//       [self prepareUI];
+//    }
+//    return self;
+//}
 
 #pragma mark - 准备UI
 -(void)prepareUI{
@@ -121,19 +157,28 @@ static NSString * const reuseIdentifier = @"Cell";
     self.startBtn.translatesAutoresizingMaskIntoConstraints = NO;
     
     // 约束
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-//    
-//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-//    
-//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-//    
-//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    
+     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    
+     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    
+     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
      // 开始按钮
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-160]];
-//    
-//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-160]];
     
+     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    
+
+}
+
+
+#pragma mark - index重写
+-(void)setImageIndex:(NSInteger)imageIndex{
+    _imageIndex = imageIndex;
+    
+    _featureView.image = [UIImage imageNamed:[NSString stringWithFormat:@"new_feature_%zd",_imageIndex + 1]];
 
 }
 
@@ -141,7 +186,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(UIImageView *)featureView{
     if (!_featureView) {
         _featureView = [[UIImageView alloc]init];
-        _featureView.image = [UIImage imageNamed:@"new_feature_1"];
+//        _featureView.image = [UIImage imageNamed:@"new_feature_1"];
     }
     return _featureView;
 }
@@ -149,7 +194,8 @@ static NSString * const reuseIdentifier = @"Cell";
 -(UIButton *)startBtn{
     if (!_startBtn){
         _startBtn = [[UIButton alloc]init];
-        
+     
+        _startBtn.hidden = YES;
         // 设置按钮背景
         [_startBtn setBackgroundImage:[UIImage imageNamed:@"new_feature_finish_button"] forState:UIControlStateNormal];
         
@@ -169,7 +215,18 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
+#pragma mark - 按钮的动画
 
+-(void)startAnimation{
+    _startBtn.hidden = NO;
+    
+    // 设置其缩放为0
+    _startBtn.transform = CGAffineTransformMakeScale(0, 0);
+    [UIView animateWithDuration:1 animations:^{
+        
+        _startBtn.transform = CGAffineTransformIdentity;
+    }];
+}
 
 
 

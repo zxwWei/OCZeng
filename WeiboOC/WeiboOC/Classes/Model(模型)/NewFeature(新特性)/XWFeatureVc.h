@@ -17,6 +17,9 @@
 // 自定义cell
 @interface XWCollectionCell : UICollectionViewCell
 
+/// 下标
+@property(nonatomic,assign) NSInteger imageIndex;
 
-
+// 动画方法
+-(void)startAnimation;
 @end

@@ -10,6 +10,7 @@
 #import "XWTabBarVC.h"
 #import "XWWelcomeVC.h"
 #import "XWFeatureVc.h"
+#import "XWHomeTableVC.h"
 
 @interface AppDelegate ()
 
@@ -30,8 +31,9 @@
 //    XWWelcomeVC *welcomeVc = [[XWWelcomeVC alloc] init];
     
 //    NSLog(@"初始化");
-//     XWFeatureVc *featureVc = [[XWFeatureVc alloc] init];
-    self.window.rootViewController = tabBar;
+     XWFeatureVc *featureVc = [[XWFeatureVc alloc] init];
+//    XWHomeTableVC *home = [[XWHomeTableVC alloc] init];
+    self.window.rootViewController = featureVc;
     
     
     return YES;

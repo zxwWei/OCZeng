@@ -7,7 +7,7 @@
 //
 
 #import "XWOauthVC.h"
-
+#import "XWUserAccount.h"
 
 @interface XWOauthVC () <UIWebViewDelegate,MBProgressHUDDelegate>
 
@@ -133,7 +133,14 @@
     // 发送请求
     [manger POST:accesTokenUrl parameters:paramters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
-        NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        // NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        // 将数据转换成模型
+        XWUserAccount *account = [XWUserAccount objectWithJSONData:responseObject];
+        NSLog(@"%@",account);
+        
+        // 保存数据
+        [account saveAccountInfo];
         
         //加载完成后消失
         [self.hud hide:YES afterDelay:1];
@@ -141,7 +148,7 @@
         [self.hud removeFromSuperview];
         
         
-        NSLog(@"%@",resultStr);
+     
         
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
