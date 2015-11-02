@@ -25,13 +25,13 @@
     //self.window = [[UIWindow alloc] init];
     [self.window makeKeyAndVisible];
     
-    //XWTabBarVC *tabBar = [[XWTabBarVC alloc]init];
+    XWTabBarVC *tabBar = [[XWTabBarVC alloc]init];
     
 //    XWWelcomeVC *welcomeVc = [[XWWelcomeVC alloc] init];
     
-    NSLog(@"初始化");
-     XWFeatureVc *featureVc = [[XWFeatureVc alloc] init];
-    self.window.rootViewController = featureVc;
+//    NSLog(@"初始化");
+//     XWFeatureVc *featureVc = [[XWFeatureVc alloc] init];
+    self.window.rootViewController = tabBar;
     
     
     return YES;

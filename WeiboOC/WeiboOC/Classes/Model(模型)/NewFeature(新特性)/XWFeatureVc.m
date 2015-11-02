@@ -59,8 +59,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark <UICollectionViewDataSource>
 
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
     return itemCount;
@@ -96,6 +94,7 @@ static NSString * const reuseIdentifier = @"Cell";
 @property(nonatomic,strong) UIButton *startBtn;
 
 @end
+
 @implementation XWCollectionCell
 
 
@@ -123,8 +122,11 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 约束
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+//    
 //     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+//    
 //     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+//    
 //     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.featureView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
      // 开始按钮

@@ -1,0 +1,31 @@
+//
+//  WeiboOC.pch
+//  WeiboOC
+//
+//  Created by apple1 on 15/11/2.
+//  Copyright © 2015年 ZXW. All rights reserved.
+//
+
+#ifndef WeiboOC_pch
+#define WeiboOC_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
+
+
+/// 申请时应用时分配的APPKey  @"1369851949" 表示字符串
+#define client_id  @"1369851949"
+
+/// 回调地址
+#define  redirect_uri  @"http://www.baidu.com/"
+
+/// 请求的类型，填写authorization_code
+#define grant_type  @"authorization_code"
+
+/// 应用的secert
+#define client_secret  @"abc9cd7b14e70a7b26ad4e1cfa147e0e"
+
+#endif /* WeiboOC_pch */

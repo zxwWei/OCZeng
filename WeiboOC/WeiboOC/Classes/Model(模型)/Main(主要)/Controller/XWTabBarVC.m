@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 设置字体和图片的渲染颜色
     self.tabBar.tintColor = [UIColor orangeColor];
     
     XWHomeTableVC *homeVc = [[XWHomeTableVC alloc]init];
