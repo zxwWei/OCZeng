@@ -8,6 +8,7 @@
 
 #import "XWOauthVC.h"
 #import "XWUserAccount.h"
+#import "AppDelegate.h"
 
 @interface XWOauthVC () <UIWebViewDelegate,MBProgressHUDDelegate>
 
@@ -27,11 +28,11 @@
     webView.frame = self.view.bounds;
     webView.delegate = self;
     // 指定代理
-    webView.delegate = self;
     
     //添加子控件
     [self.view addSubview:webView];
-    self.webView = webView;
+    
+//    self.webView = webView;
    
     
     
@@ -45,7 +46,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:oauthStr]];
     
     // 发送请求
-    [self.webView loadRequest:request];
+    [webView loadRequest:request];
     
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(backToMainVc)];
@@ -137,7 +138,8 @@
         
         // 将数据转换成模型
         XWUserAccount *account = [XWUserAccount objectWithJSONData:responseObject];
-        NSLog(@"%@",account);
+        NSLog(@"account:%@",account);
+        
         
         // 保存数据
         [account saveAccountInfo];
@@ -147,8 +149,11 @@
         // 去除hud
         [self.hud removeFromSuperview];
         
-        
      
+        // 加载完成进入欢迎界面
+        AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate switchVcWithIsMain:false];
+
         
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
@@ -160,13 +165,10 @@
 }
 
 
-
-
-
-
-
-
-
+// 登录完成退出
+-(void)close{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 #pragma mark - 懒加载

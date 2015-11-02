@@ -8,7 +8,7 @@
 
 #import "XWFeatureVc.h"
 #import "UIColor+Extesion.h"
-
+#import "AppDelegate.h"
 #define itemCount 4
 
 @interface XWFeatureVc ()
@@ -219,9 +219,10 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - 按钮点击事件
 -(void)jumpToVc{
 
+    AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate switchVcWithIsMain:true];
 
 }
-
 #pragma mark - 按钮的动画
 
 -(void)startAnimation{

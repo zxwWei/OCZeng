@@ -14,6 +14,10 @@
 
 @interface AppDelegate ()
 
+@property(nonatomic,strong) XWTabBarVC *tabBarVc;
+@property(nonatomic,strong) XWWelcomeVC *welcomeVc;
+@property(nonatomic,strong) XWFeatureVc *featureVc;
+
 @end
 
 @implementation AppDelegate
@@ -26,17 +30,65 @@
     //self.window = [[UIWindow alloc] init];
     [self.window makeKeyAndVisible];
     
-    XWTabBarVC *tabBar = [[XWTabBarVC alloc]init];
+    self.tabBarVc = [[XWTabBarVC alloc]init];
     
-//    XWWelcomeVC *welcomeVc = [[XWWelcomeVC alloc] init];
+     self.welcomeVc = [[XWWelcomeVC alloc] init];
+    
     
 //    NSLog(@"初始化");
-     XWFeatureVc *featureVc = [[XWFeatureVc alloc] init];
+     self.featureVc = [[XWFeatureVc alloc] init];
 //    XWHomeTableVC *home = [[XWHomeTableVC alloc] init];
-    self.window.rootViewController = featureVc;
+    self.window.rootViewController = [self defaultController];
     
     
     return YES;
+}
+
+
+// MARK: - 根据版本号来判断进入那一个控制器
+
+-(UIViewController *) defaultController{
+    
+//    // if did not have account show tabbar
+//    if [XWUserAccount ] {
+//        
+//        return XWMainTabBarController()
+//    }
+    
+    
+    return [self getVersion] ? self.featureVc : self.welcomeVc;
+}
+
+
+// MARK: - 判断版本号
+-(BOOL)getVersion{
+
+    // 获取当前的版本号
+//    let curretnVersionStr = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+    NSString *currentVersionStr = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+    
+    // 将其转换成double
+    double curretnVersion = currentVersionStr.doubleValue;
+    // 获取之前的版本号
+    
+    NSString *sandBoxVersionKey = @"sandBoxVersionKey";
+    double sandBoxVersion = [[NSUserDefaults standardUserDefaults]doubleForKey:sandBoxVersionKey];
+    
+    //print("sandBoxVersion\(sandBoxVersion)")
+    
+    
+//    // 保存当前版本号
+    [[NSUserDefaults standardUserDefaults] setDouble:curretnVersion forKey:sandBoxVersionKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    return  curretnVersion > sandBoxVersion;
+}
+
+
+// 根据需要切换控制器
+-(void)switchVcWithIsMain:(BOOL) isMain {
+
+    self.window.rootViewController = isMain ? self.tabBarVc : self.welcomeVc;
 }
 
 

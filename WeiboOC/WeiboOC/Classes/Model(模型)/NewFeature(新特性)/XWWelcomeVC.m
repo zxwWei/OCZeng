@@ -7,6 +7,8 @@
 //
 
 #import "XWWelcomeVC.h"
+#import "AppDelegate.h"
+#import "XWTabBarVC.h"
 
 @interface XWWelcomeVC ()
 
@@ -90,6 +92,7 @@
             
         } completion:^(BOOL finished) {
             // 显示完毕做的事情
+            [UIApplication sharedApplication].keyWindow.rootViewController = [[XWTabBarVC alloc]init];
             
         }];
         

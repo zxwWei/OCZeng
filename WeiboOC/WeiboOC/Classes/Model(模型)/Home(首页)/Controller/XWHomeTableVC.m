@@ -8,6 +8,7 @@
 
 #import "XWHomeTableVC.h"
 #import "XWUserAccount.h"
+#import "XWUser.h"
 
 @interface XWHomeTableVC ()
 
@@ -43,13 +44,26 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
+    // 一定要设置 获取到所有的微博信息
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    parameters[@"client_id"] = [XWUserAccount shareAccount].access_token;
+    parameters[@"access_token"] = [XWUserAccount shareAccount].access_token;
+    NSLog(@"%@",[XWUserAccount shareAccount].access_token);
     
     [manager GET:urlStr parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
+//        NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        XWUser *user = [XWUser objectWithJSONData:responseObject];
+        
+        
+        // TODO: 嵌套模型的转换 swift 和 oc 的 理解  各种属性的关系
+        NSLog(@"%@",user);
+        
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
         
     }];
     

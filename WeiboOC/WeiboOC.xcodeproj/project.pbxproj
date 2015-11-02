@@ -21,6 +21,7 @@
 		18C52B691BDF642700792DF1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C52B681BDF642700792DF1 /* main.m */; };
 		18C52B6C1BDF642700792DF1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C52B6B1BDF642700792DF1 /* AppDelegate.m */; };
 		18C52B741BDF642700792DF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C52B731BDF642700792DF1 /* Assets.xcassets */; };
+		2E066FF41BE7AC29008F94CB /* XWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E066FF31BE7AC29008F94CB /* XWUser.m */; settings = {ASSET_TAGS = (); }; };
 		2EDEA3521BE74A5100A68E3E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EDEA33A1BE74A5100A68E3E /* Info.plist */; };
 		2EDEA3531BE74A5100A68E3E /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEA33C1BE74A5100A68E3E /* MASCompositeConstraint.m */; };
 		2EDEA3541BE74A5100A68E3E /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEA33F1BE74A5100A68E3E /* MASConstraint.m */; };
@@ -76,6 +77,8 @@
 		18C52B731BDF642700792DF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18C52B781BDF642700792DF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FD2CCF23294BE8CA69F519B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2E066FF21BE7AC29008F94CB /* XWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWUser.h; sourceTree = "<group>"; };
+		2E066FF31BE7AC29008F94CB /* XWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWUser.m; sourceTree = "<group>"; };
 		2EDEA33A1BE74A5100A68E3E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EDEA33B1BE74A5100A68E3E /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		2EDEA33C1BE74A5100A68E3E /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				2EDEA3631BE7737700A68E3E /* XWUserAccount.m */,
 				2EDEA3671BE7783000A68E3E /* XWStatus.h */,
 				2EDEA3681BE7783000A68E3E /* XWStatus.m */,
+				2E066FF21BE7AC29008F94CB /* XWUser.h */,
+				2E066FF31BE7AC29008F94CB /* XWUser.m */,
 			);
 			path = "Module(公共模型)";
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 				185262A51BDFB678005D0A93 /* XWCompassView.m in Sources */,
 				1852629F1BDFA650005D0A93 /* XWProfileTableVC.m in Sources */,
 				2EDEA3591BE74A5100A68E3E /* NSArray+MASAdditions.m in Sources */,
+				2E066FF41BE7AC29008F94CB /* XWUser.m in Sources */,
 				18898FFC1BE3AC9100FCB250 /* XWFeatureVc.m in Sources */,
 				2EDEA3561BE74A5100A68E3E /* MASLayoutConstraint.m in Sources */,
 				2EDEA3531BE74A5100A68E3E /* MASCompositeConstraint.m in Sources */,
