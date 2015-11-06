@@ -170,8 +170,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
      // 开始按钮
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-160]];
-//    
-//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+//    边edges//     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.startBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView).with.offset(-160);
         make.centerX.equalTo(self.contentView.mas_centerX);

@@ -8,12 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^finishedBlock)(id response,NSError *error);
+
 @interface XWNetWorkTool : NSObject
 
-
+/**
+ *  单例
+ */
++(instancetype)sharedInstance;
+/**
+ * 获取本地数据
+ */
++(void)getblogInfoWithFinishedBlock:(finishedBlock) finished;
 
 /// 获取url方法
--(NSURL *)getOauthUrlWithclientid:(NSString *)clientid redirecturi:(NSString *)redirecturi granttype:(NSString *)granttype clientsecret:(NSString *) clientsecret;
+-(void)getAcessTokenlWithCode:(NSString *)code finished:(finishedBlock) finished;
 
 
 @end

@@ -22,6 +22,7 @@
 		18C52B6C1BDF642700792DF1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C52B6B1BDF642700792DF1 /* AppDelegate.m */; };
 		18C52B741BDF642700792DF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C52B731BDF642700792DF1 /* Assets.xcassets */; };
 		2E066FF41BE7AC29008F94CB /* XWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E066FF31BE7AC29008F94CB /* XWUser.m */; settings = {ASSET_TAGS = (); }; };
+		2E3DED8F1BEC2E8900B3F302 /* XWHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3DED8E1BEC2E8900B3F302 /* XWHomeTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		2EDEA3521BE74A5100A68E3E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EDEA33A1BE74A5100A68E3E /* Info.plist */; };
 		2EDEA3531BE74A5100A68E3E /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEA33C1BE74A5100A68E3E /* MASCompositeConstraint.m */; };
 		2EDEA3541BE74A5100A68E3E /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEA33F1BE74A5100A68E3E /* MASConstraint.m */; };
@@ -79,6 +80,8 @@
 		1FD2CCF23294BE8CA69F519B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2E066FF21BE7AC29008F94CB /* XWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWUser.h; sourceTree = "<group>"; };
 		2E066FF31BE7AC29008F94CB /* XWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWUser.m; sourceTree = "<group>"; };
+		2E3DED8D1BEC2E8900B3F302 /* XWHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWHomeTableViewCell.h; sourceTree = "<group>"; };
+		2E3DED8E1BEC2E8900B3F302 /* XWHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWHomeTableViewCell.m; sourceTree = "<group>"; };
 		2EDEA33A1BE74A5100A68E3E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EDEA33B1BE74A5100A68E3E /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		2EDEA33C1BE74A5100A68E3E /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -315,6 +318,7 @@
 		1852628C1BDFA53F005D0A93 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2E3DED8C1BEC2E6800B3F302 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,6 +453,15 @@
 				185262811BDF709F005D0A93 /* Profile(我) */,
 			);
 			path = "Model(模型)";
+			sourceTree = "<group>";
+		};
+		2E3DED8C1BEC2E6800B3F302 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2E3DED8D1BEC2E8900B3F302 /* XWHomeTableViewCell.h */,
+				2E3DED8E1BEC2E8900B3F302 /* XWHomeTableViewCell.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2EDEA3391BE74A5100A68E3E /* Masonry */ = {
@@ -653,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E3DED8F1BEC2E8900B3F302 /* XWHomeTableViewCell.m in Sources */,
 				2EDEA37F1BE7854300A68E3E /* NSObject+MJIvar.m in Sources */,
 				18C52B6C1BDF642700792DF1 /* AppDelegate.m in Sources */,
 				18898FFF1BE3ADEF00FCB250 /* UIColor+Extesion.m in Sources */,

@@ -17,6 +17,9 @@
 #import "MJExtension.h"
 #import "Masonry.h"
 
+/// 屏幕宽度
+#define widthS [UIScreen mainScreen].bounds.size.width
+
 /// 申请时应用时分配的APPKey  @"1369851949" 表示字符串
 #define client_id  @"1369851949"
 

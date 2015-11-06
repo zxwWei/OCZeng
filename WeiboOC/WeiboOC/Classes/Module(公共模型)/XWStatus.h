@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class XWUser;
 
 @interface XWStatus : NSObject
 
@@ -15,7 +16,7 @@
 //var created_at: String?
 
 /// 字符串型的微博ID
-@property(nonatomic,copy) NSString *idstr;
+@property(nonatomic,copy) NSString *id;
 
 /// 微博信息内容
 @property(nonatomic,copy) NSString *text;
@@ -25,5 +26,8 @@
 
 /// 微博的配图   此时是字符串数组  需要将其转换成url数组
 @property(nonatomic,strong) NSArray *pic_urls;
+
+/// 微博所属的用户
+@property(nonatomic,strong) XWUser *user;
 
 @end

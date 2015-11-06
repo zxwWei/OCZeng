@@ -107,59 +107,70 @@
     return YES;
 }
 
+
+
+
 #pragma mark - 获取accesToken
 -(void)assesToken:(NSString *)code{
 
-    // 获取accesToken的url
-    NSString *accesTokenUrl = @"https://api.weibo.com/oauth2/access_token";
-    
-    // 创建http管理器
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    
-    // 其默认是json格式 转换成二进制格式
-    // [AFHTTPResponseSerializer serializer]; 设置返回的数据处理方式是二进制
-    // [AFJSONResponseSerializer serializer] ;设置返回的数据处理方式是json 默认
-    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     
-    // 准备可变参数字典
-    NSMutableDictionary *paramters = [NSMutableDictionary dictionary];
     
-    paramters[@"client_id"] = client_id;
-    paramters[@"client_secret"] = client_secret;
-    paramters[@"grant_type"] = grant_type;
-    paramters[@"code"] = code;
-    paramters[@"redirect_uri"] = redirect_uri;
     
-    // 发送请求
-    [manger POST:accesTokenUrl parameters:paramters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        
-        // NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
-        // 将数据转换成模型
-        XWUserAccount *account = [XWUserAccount objectWithJSONData:responseObject];
-        NSLog(@"account:%@",account);
-        
-        
-        // 保存数据
-        [account saveAccountInfo];
-        
-        //加载完成后消失
-        [self.hud hide:YES afterDelay:1];
-        // 去除hud
-        [self.hud removeFromSuperview];
-        
-     
-        // 加载完成进入欢迎界面
-        AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate switchVcWithIsMain:false];
-
-        
-        
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
-        
-    }];
+    
+    
+    
+    
+//    // 获取accesToken的url
+//    NSString *accesTokenUrl = @"https://api.weibo.com/oauth2/access_token";
+//    
+//    // 创建http管理器
+//    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+//    
+//    // 其默认是json格式 转换成二进制格式
+//    // [AFHTTPResponseSerializer serializer]; 设置返回的数据处理方式是二进制
+//    // [AFJSONResponseSerializer serializer] ;设置返回的数据处理方式是json 默认
+//    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    
+//    // 准备可变参数字典
+//    NSMutableDictionary *paramters = [NSMutableDictionary dictionary];
+//    
+//    paramters[@"client_id"] = client_id;
+//    paramters[@"client_secret"] = client_secret;
+//    paramters[@"grant_type"] = grant_type;
+//    paramters[@"code"] = code;
+//    paramters[@"redirect_uri"] = redirect_uri;
+//    
+//    // 发送请求
+//    [manger POST:accesTokenUrl parameters:paramters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//        
+//        // NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        
+//        // 将数据转换成模型
+//        XWUserAccount *account = [XWUserAccount objectWithJSONData:responseObject];
+//        NSLog(@"account:%@",account);
+//        
+//        
+//        // 保存数据
+//        [account saveAccountInfo];
+//        
+//        //加载完成后消失
+//        [self.hud hide:YES afterDelay:1];
+//        // 去除hud
+//        [self.hud removeFromSuperview];
+//        
+//     
+//        // 加载完成进入欢迎界面
+//        AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [delegate switchVcWithIsMain:false];
+//
+//        
+//        
+//    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+//        
+//        
+//    }];
 
 
 }
