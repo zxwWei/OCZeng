@@ -53,7 +53,7 @@
 //        
 //        make.bottom.equalTo(self.contentView).with.offset(10);
 //        make.centerX.equalTo(self.contentView.mas_centerX);
-        make.edges.equalTo(self.contentView).width.insets(UIEdgeInsetsMake(0, 0, 0, 0));
+        //make.edges.equalTo(self.contentView).width.insets(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
     

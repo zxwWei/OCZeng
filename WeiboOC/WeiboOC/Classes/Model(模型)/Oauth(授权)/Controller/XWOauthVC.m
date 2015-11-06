@@ -9,6 +9,7 @@
 #import "XWOauthVC.h"
 #import "XWUserAccount.h"
 #import "AppDelegate.h"
+#import "XWNetWorkTool.h"
 
 @interface XWOauthVC () <UIWebViewDelegate,MBProgressHUDDelegate>
 
@@ -98,7 +99,7 @@
         NSLog(@"%@",code);
         
         // 获取assesToken
-        [self assesToken:code];
+        [self getAcessTokenWithCode:code];
         
         // 让回调页面不在web上显示
         return NO;
@@ -111,15 +112,37 @@
 
 
 #pragma mark - 获取accesToken
+
+// 获取acessToken
+-(void)getAcessTokenWithCode:(NSString *)code{
+    
+    [[XWNetWorkTool sharedInstance] getAcessTokenlWithCode:code finished:^(id response, NSError *error) {
+        
+            // 将数据转换成模型
+            XWUserAccount *account = [XWUserAccount objectWithJSONData:response];
+            NSLog(@"account:%@",account);
+    
+    
+            // 保存数据
+            [account saveAccountInfo];
+    
+            //加载完成后消失
+            [self.hud hide:YES afterDelay:1];
+            // 去除hud
+            [self.hud removeFromSuperview];
+    
+    
+            // 加载完成进入欢迎界面
+            AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate switchVcWithIsMain:false];
+    }];
+    
+}
+
+
+
 -(void)assesToken:(NSString *)code{
 
-    
-    
-    
-    
-    
-    
-    
     
 //    // 获取accesToken的url
 //    NSString *accesTokenUrl = @"https://api.weibo.com/oauth2/access_token";
@@ -196,9 +219,6 @@
 #pragma mark - 返回主页面
 -(void)backToMainVc{
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
-    
 }
 
 

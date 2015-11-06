@@ -48,24 +48,11 @@
     
 //    self.tableView.sectionHeaderHeight = 70;  //好像没用
     // 获取微博网络数据
-    //[self loadStatuse];
+    [self loadStatuse];
     
     // 获取本地数据
-    [self loadLocalStatus];
+//    [self loadLocalStatus];
 }
-
-
-
-// 获取acessToken
--(void)getAcessTokenWithCode:(NSString *)code{
-    
-    [[XWNetWorkTool sharedInstance] getAcessTokenlWithCode:code finished:^(id response, NSError *error) {
-       
-        
-    }];
-
-}
-
 
 
 // 加载本地数据
@@ -122,12 +109,14 @@
 }
 
 
+
 #pragma mark - 初始化导航条控件
 -(void)loadStatuse{
     
     NSString *urlStr = @"https://api.weibo.com/2/statuses/home_timeline.json";
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    // AFHTTPRequestOperationManager 与 AFHTTPSessionManager区别
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     // 一定要设置 获取到所有的微博信息
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -135,23 +124,82 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     parameters[@"access_token"] = [XWUserAccount shareAccount].access_token;
+    
     NSLog(@"%@",[XWUserAccount shareAccount].access_token);
     
-    [manager GET:urlStr parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+    
+    [manager GET:urlStr parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+#warning mark  -出错的地方
+         //MARK: - bug responseObject 是data数据来的
+        // NSJSONReadingMutableContainers 参数的区别
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
+//        NSLog(@"%@",dict);
 //        NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@",resultStr);
         
-        XWUser *user = [XWUser objectWithJSONData:responseObject];
+        // 取得微博数据数组
+        NSArray *statusArr = dict[@"statuses"];
+        
+        // 将其转换成微博对象数组
+        NSArray *status = [XWStatus objectArrayWithKeyValuesArray:statusArr];
+        
+        // 遍历微博对象数组中的每个对象
+        for (XWStatus *sts in status ){
+
+            NSLog(@"status:%@",sts.pic_urls);
+        }
+
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+        
+        
+    } ];
+    
+}
+
+//    AFHTTPSessionManager 与上面差不多
+        //responseObject  是data数据来的
+        
+        //NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+
         
         
         // TODO: 嵌套模型的转换 swift 和 oc 的 理解  各种属性的关系
-        NSLog(@"%@",user);
+        //NSLog(@"%@",resultStr);
         
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+//        // 1.获取微博数据  这些字段是在微博数组里面的
+//        NSArray *statusesArr = responseObject[@"previous_cursor"];
+//        
+//        NSLog(@"%@",statusesArr);
+//
+//        // 2.把 "微博字典的数组" 转成 "微博模型的数组"
+////        NSArray *status = [XWStatus objectArrayWithKeyValuesArray:statusesArr];
+//        
+//                // 遍历微博对象数组中的每个对象
+//                for (XWStatus *sts in status ){
+//        
+//                    NSLog(@"status:%@",sts.text);
+////                }
+//        
+//        // 将数据插入到可变数组的后面
+//        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, status.count)];
+//        
+//        [self.statusArrM insertObjects:status atIndexes:set];
+        // 获取user
+//        NSDictionary *userDict = statusesArr[0][@"user"];
+//
+////
+//        NSLog(@"%@",userDict);
+//        [self.tableView reloadData];
+    
         
-        
-    }];
-}
+        // 取得微博数据里面的用户字段
+//        NSArray *userArr =
+    
 
 
 
