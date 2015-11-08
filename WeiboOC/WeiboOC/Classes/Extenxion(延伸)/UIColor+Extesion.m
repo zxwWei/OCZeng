@@ -12,12 +12,9 @@
 
 +(UIColor*) randomColor{
     
-    return [UIColor colorWithRed:23 / 255 green:33 /255  blue:44 / 255 alpha:1];
+    return [UIColor colorWithRed:( arc4random_uniform(256)  /  255 )  green:( arc4random_uniform(256) / 255 )  blue:( arc4random_uniform(256) / 255 )  alpha:1];
 }
 
 
-//+(CGFloat) randomNumber{
-//
-////    return ( (arc4random_uniform(256))  /  255 );
-//}
+
 @end

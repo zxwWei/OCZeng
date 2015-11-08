@@ -33,14 +33,12 @@
     //添加子控件
     [self.view addSubview:webView];
     
-//    self.webView = webView;
+    
    
-    
-    
     self.title = @"新浪微博登陆";
     
     //"https://api.weibo.com/oauth2/authorize?client_id=\(client_id)&redirect_uri=\(redirect_uri)"
-    // 加载授权页面
+    // 加载授权页面 登录请求
     NSString *oauthStr = [NSString stringWithFormat:@"https://api.weibo.com/oauth2/authorize?client_id=%@&redirect_uri=%@",client_id,redirect_uri];
     
     // 请求
@@ -49,14 +47,12 @@
     // 发送请求
     [webView loadRequest:request];
     
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(backToMainVc)];
     
 
 }
 
 #pragma mark - webView代理方法
-
 // 开始加载
 -(void)webViewDidStartLoad:(UIWebView *)webView{
     
@@ -109,10 +105,7 @@
 }
 
 
-
-
-#pragma mark - 获取accesToken
-
+#pragma mark - 获取accesToken 返回用户信息
 // 获取acessToken
 -(void)getAcessTokenWithCode:(NSString *)code{
     
@@ -121,7 +114,6 @@
             // 将数据转换成模型
             XWUserAccount *account = [XWUserAccount objectWithJSONData:response];
             NSLog(@"account:%@",account);
-    
     
             // 保存数据
             [account saveAccountInfo];
@@ -137,65 +129,6 @@
             [delegate switchVcWithIsMain:false];
     }];
     
-}
-
-
-
--(void)assesToken:(NSString *)code{
-
-    
-//    // 获取accesToken的url
-//    NSString *accesTokenUrl = @"https://api.weibo.com/oauth2/access_token";
-//    
-//    // 创建http管理器
-//    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-//    
-//    // 其默认是json格式 转换成二进制格式
-//    // [AFHTTPResponseSerializer serializer]; 设置返回的数据处理方式是二进制
-//    // [AFJSONResponseSerializer serializer] ;设置返回的数据处理方式是json 默认
-//    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    
-//    // 准备可变参数字典
-//    NSMutableDictionary *paramters = [NSMutableDictionary dictionary];
-//    
-//    paramters[@"client_id"] = client_id;
-//    paramters[@"client_secret"] = client_secret;
-//    paramters[@"grant_type"] = grant_type;
-//    paramters[@"code"] = code;
-//    paramters[@"redirect_uri"] = redirect_uri;
-//    
-//    // 发送请求
-//    [manger POST:accesTokenUrl parameters:paramters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//        
-//        // NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        
-//        // 将数据转换成模型
-//        XWUserAccount *account = [XWUserAccount objectWithJSONData:responseObject];
-//        NSLog(@"account:%@",account);
-//        
-//        
-//        // 保存数据
-//        [account saveAccountInfo];
-//        
-//        //加载完成后消失
-//        [self.hud hide:YES afterDelay:1];
-//        // 去除hud
-//        [self.hud removeFromSuperview];
-//        
-//     
-//        // 加载完成进入欢迎界面
-//        AppDelegate *delegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
-//        [delegate switchVcWithIsMain:false];
-//
-//        
-//        
-//    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-//        
-//        
-//    }];
-
-
 }
 
 
@@ -215,8 +148,8 @@
 }
 
 
-
-#pragma mark - 返回主页面
+#pragma mark 按钮点击事件
+// 返回主页面
 -(void)backToMainVc{
     [self dismissViewControllerAnimated:YES completion:nil];
 }

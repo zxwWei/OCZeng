@@ -7,6 +7,8 @@
 //
 
 #import "XWNetWorkTool.h"
+#import "XWStatus.h"
+#import "XWUserAccount.h"
 
 static XWNetWorkTool *netWorkTool = nil;
 @interface XWNetWorkTool ()
@@ -17,9 +19,6 @@ static XWNetWorkTool *netWorkTool = nil;
 @end
 
 @implementation XWNetWorkTool
-
-/// 申请时分配的appleKey
-
 
 +(instancetype)sharedInstance{
 
@@ -40,27 +39,12 @@ static XWNetWorkTool *netWorkTool = nil;
     return netWorkTool;
 }
 
-+(void)getblogInfoWithFinishedBlock:(finishedBlock) finished {
-    
-    // 获取路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
-    
-    // 加载文件数据
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    
 
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    finished(dict,nil);
-    
-
-}
-
-
+#pragma mark - 获取数据
 
 // 获取ouath url
 -(void)getAcessTokenlWithCode:(NSString *)code finished:(finishedBlock) finished{
-
+    
     // 拼接路径
     // 获取accesToken的url
     NSString *accesTokenUrl = @"https://api.weibo.com/oauth2/access_token";
@@ -91,9 +75,127 @@ static XWNetWorkTool *netWorkTool = nil;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         finished(nil,error);
     }];
+}
+
+// 获取用户信息
+-(void) getUserinfoWithFinishedBlock:(finishedBlock) finished {
+    
+    if (![XWUserAccount shareAccount].access_token) {
+        
+        return;
+    }
+    if (![XWUserAccount shareAccount].uid) {
+        
+        return;
+    }
+    
+    // url路径
+    NSString *urlStr = @"https://api.weibo.com/2/users/show.json";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 一定要设置 获取到所有的微博信息
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    // 拼接参数
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"access_token"] = [XWUserAccount shareAccount].access_token;
+    parameters[@"uid"] = [XWUserAccount shareAccount].uid;
+    
+    // 发送请求
+    [manager GET:urlStr parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        finished(responseObject,nil);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+        finished(nil,error);
+    }];
+}
+
+// 获取微博信息
+-(void) getNetworkBlogstatusWithFinishedBlock:(finishedBlock) finished {
+
+    
+    NSString *urlStr = @"https://api.weibo.com/2/statuses/home_timeline.json";
+    
+    // AFHTTPRequestOperationManager 与 AFHTTPSessionManager区别
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 一定要设置 获取到所有的微博信息
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    parameters[@"access_token"] = [XWUserAccount shareAccount].access_token;
     
     
+    [manager GET:urlStr parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+#warning mark bug  返回的是responseObject 是data数据来的  -出错的地方
+        finished(responseObject,nil);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+        finished(nil,error);
+        
+    } ];
+
+}
+
+// 获取微博本地数据
+-(void)getblogInfoWithFinishedBlock:(finishedBlock) finished {
     
+    // 获取路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
+    
+    // 加载文件数据
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    
+
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    finished(dict,nil);
+    
+
+}
+
+// 发微博
+-(void)sendBlogWithImage:(UIImage *)image text:(NSString*)text finished:(finishedBlock)finished{
+    // 有图片,发送带图片的微博
+    NSString  *urlString = @"https://upload.api.weibo.com/2/statuses/upload.json";
+    
+    // AFHTTPRequestOperationManager 与 AFHTTPSessionManager区别
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 一定要设置 获取到所有的微博信息
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    parameters[@"access_token"] = [XWUserAccount shareAccount].access_token;
+    
+    // 拼接参数
+    parameters[@"status"] = text;
+    
+    [manager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        // 将图片转成二进制
+        NSData *data = UIImagePNGRepresentation(image);
+        // data: 上传图片的2进制
+        // name: api 上面写的传递参数名称 "pic"
+        // fileName: 上传到服务器后,保存的名称,没有指定可以随便写
+        // mimeType: 资源类型:
+        // image/png
+        // image/jpeg
+        // image/gif
+        [formData appendPartWithFileData:data name:@"pic" fileName:@"sb" mimeType:@"image/png"];
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        finished(responseObject,nil);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+        finished(nil,error);
+    }];
+
 }
 
 

@@ -17,12 +17,25 @@ typedef void (^finishedBlock)(id response,NSError *error);
  */
 +(instancetype)sharedInstance;
 /**
- * 获取本地数据
+ *  获取本地数据
  */
-+(void)getblogInfoWithFinishedBlock:(finishedBlock) finished;
+-(void)getblogInfoWithFinishedBlock:(finishedBlock) finished;
 
 /// 获取url方法
 -(void)getAcessTokenlWithCode:(NSString *)code finished:(finishedBlock) finished;
+/**
+    获取微博信息
+ */
+-(void) getNetworkBlogstatusWithFinishedBlock:(finishedBlock) finished;
+/**
+    获取用户信息
+ */
+-(void) getUserinfoWithFinishedBlock:(finishedBlock) finished;
 
 
+/**
+   发微博
+ */
+
+-(void)sendBlogWithImage:(UIImage *)image text:(NSString*)text finished:(finishedBlock)finished;
 @end

@@ -11,6 +11,7 @@
 #import "XWWelcomeVC.h"
 #import "XWFeatureVc.h"
 #import "XWHomeTableVC.h"
+#import "XWPhotoSelctorVC.h"
 
 @interface AppDelegate ()
 
@@ -39,6 +40,7 @@
      self.featureVc = [[XWFeatureVc alloc] init];
 //    XWHomeTableVC *home = [[XWHomeTableVC alloc] init];
     self.window.rootViewController = [self defaultController];
+    //self.window.rootViewController = [[XWPhotoSelctorVC alloc]init];
     
     
     return YES;

@@ -11,6 +11,7 @@
 #import "XWMessageTableVC.h"
 #import "XWDiscoverTableVC.h"
 #import "XWProfileTableVC.h"
+#import "XWCompseVC.h"
 
 @interface XWTabBarVC ()
 @property(nonatomic,strong) UIButton *compassBtn;
@@ -77,10 +78,16 @@
         [_compassBtn setImage:[UIImage imageNamed:@"tabbar_compose_icon_add_highlighted"] forState:UIControlStateHighlighted];
         [_compassBtn setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button"] forState:UIControlStateNormal];
          [_compassBtn setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button_highlighted"] forState:UIControlStateHighlighted];
+#warning mark - 事件添加都忘记了 呵呵
+        [_compassBtn addTarget:self action:@selector(jumpToCompose) forControlEvents:UIControlEventTouchUpInside];
     }
     return  _compassBtn;
 }
 
-
+-(void) jumpToCompose{
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[XWCompseVC alloc]init]] animated:YES completion:nil];
+    
+}
 
 @end

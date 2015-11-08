@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class XWStatus;
+@class XWUser;
 
 @interface XWHomeTableViewCell : UITableViewCell
 
@@ -17,5 +18,7 @@
  */
 +(instancetype)cellWithTableView:(UITableView*)tableview;
 @property(nonatomic,strong) XWStatus *statu;
+
+@property(nonatomic,strong) XWUser *user;
 
 @end
